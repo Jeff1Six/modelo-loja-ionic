@@ -10,8 +10,7 @@ import { AuthService } from '../../services/Auth.service';
 })
 export class HomePage {
 
-  creds : CredencialsDTO = {
-    
+  creds : CredencialsDTO = {  
     email: "",
     senha:""
   };
@@ -31,6 +30,12 @@ export class HomePage {
     error => {})
 }
 
+  ionViewWillEnter(){
+    this.menu.swipeEnable(false);
+  }
+  ionViewWillLeave(){
+    this.menu.swipeEnable(false);
+  }
 
   login(){
     this.auth.authenticate(this.creds)
@@ -39,6 +44,9 @@ export class HomePage {
         this.navCtrl.setRoot('ProfilePage');
       },
       error => {})
+  }
+  signup(){
+    this.navCtrl.push('SignupPage')
   }
 
 }
