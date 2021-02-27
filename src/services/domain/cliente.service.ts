@@ -9,14 +9,10 @@ import { StorageService } from "../storage.service";
 export class ClienteService{
     constructor(public http: HttpClient, public storage: StorageService){}
     findByEmail(email: string) :Observable<ClienteDTO>{
-        let token = this.storage.getLocalUser().token;
-        let authHeader = new HttpHeaders({'Authorization': 'Bearer  ' + token});
-
-        return this.http.get<ClienteDTO>(
-            `${API_CONFIG.baseUrl}/clientes/email?value=${email}`,
-            {'headers': authHeader}
-            );
+        return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }  
+
+    
     /* FUNCAO  PARA  ACESSAR AMAZON S3 E CAPTURAR IMAGEM
     getImageFromBucket(id: string) :Observable<any> {
         let url = `${API_CONFIG.bucketBaseURl}/cp${id}.jpg`
