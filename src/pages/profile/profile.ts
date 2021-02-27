@@ -38,8 +38,12 @@ export class ProfilePage {
           // this.getImageifExists();
           //buscar imagem -  Quando  resolver problema  do  Amazon S3
         },  error => {
-
+          if(error.status == 403 ){
+            this.navCtrl.setRoot('HomePage');
+          }
         });
+    }else {
+      this.navCtrl.setRoot('HomePage');
     }
   }
 
