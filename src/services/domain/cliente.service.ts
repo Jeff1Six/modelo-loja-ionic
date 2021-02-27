@@ -12,6 +12,14 @@ export class ClienteService{
         return this.http.get<ClienteDTO>(`${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }  
 
+    insert(obj : ClienteDTO){
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/clientes`, obj, {
+                observe: 'response' , 
+                responseType: 'text'
+            })
+    }
+
     
     /* FUNCAO  PARA  ACESSAR AMAZON S3 E CAPTURAR IMAGEM
     getImageFromBucket(id: string) :Observable<any> {
