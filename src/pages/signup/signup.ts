@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { CidadeDTO } from '../../models/CIdade.dto';
 import { EstadoDTO } from '../../models/Estado.dto';
 import { CidadeService } from '../../services/domain/cidade.service';
@@ -22,6 +23,7 @@ export class SignupPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public menu: MenuController,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
     public estadoService: EstadoService
@@ -44,7 +46,12 @@ export class SignupPage {
         cidadeId : [null, [Validators.required]]      
       });
   }
-
+  ionViewWillEnter(){
+    this.menu.swipeEnable(false);
+  }
+  ionViewWillLeave(){
+    this.menu.swipeEnable(false);
+  }
   ionViewDidLoad() {
 
     this.estadoService.findAll()
@@ -54,7 +61,7 @@ export class SignupPage {
         this.updateCidades();
       })
   }
-
+  
   updateCidades(){
     let estado_id = this.formGroup.value.estadoId;
     this.cidadeService.findAll(estado_id)
@@ -67,5 +74,6 @@ export class SignupPage {
   signupUser(){
     console.log("Enviou o form")
   }
+ 
 
 }
