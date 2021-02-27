@@ -9,6 +9,9 @@
 
 
 <ion-content padding>
-  <ion-title>{{email}}</ion-title>
-
+  <ion-avatar>
+    <img [src]="cliente?.imageUrl || 'assets/imgs/avatar-blank.png' " alt="Imagem de Perfil" class="circle">
+  </ion-avatar>
+  <h2 text-center>{{cliente?.nome}}</h2>
+  <p text-center>{{cliente?.email}}</p>
 </ion-content>
