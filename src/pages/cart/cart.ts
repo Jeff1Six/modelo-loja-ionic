@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { API_CONFIG } from '../../config/api.config';
 import { CartItem } from '../../models/cart-item';
+import { ProdutoDTO } from '../../models/Produto.dto';
 import { CartService } from '../../services/domain/cart.service';
 import { ProdutoService } from '../../services/domain/Produto.service';
 
@@ -36,5 +37,25 @@ export class CartPage {
     }, error => {});
   }
 }
+
+removeItem(produto: ProdutoDTO){
+  this.item = this.cartService.removeProduto(produto).itens;
+}
+
+increaseItem(produto: ProdutoDTO){
+  this.item = this.cartService.increaseQuantity(produto).itens;
+}
+
+decreaseItem(produto: ProdutoDTO){
+  this.item = this.cartService.decreaseQuantity(produto).itens;
+}
+
+total() : number {
+  return this.cartService.total();
+  }
+
+  goOn() {
+    this.navCtrl.setRoot('CategoriasPage');
+  }
 
 }

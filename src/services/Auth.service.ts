@@ -5,6 +5,7 @@ import { JwtHelper } from "angular2-jwt";
 import { API_CONFIG } from "../config/api.config";
 import { CredencialsDTO } from "../models/credencials.dto";
 import { LocalUser } from "../models/localUser";
+import { CartService } from "./domain/cart.service";
 import { StorageService } from "./storage.service";
 
 @Injectable()
@@ -12,7 +13,10 @@ export class AuthService{
     
     jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(public http: HttpClient, public storage: StorageService){
+    constructor(
+        public http: HttpClient, 
+        public storage: StorageService,
+        public cartService: CartService){
 
     }
 
@@ -34,7 +38,9 @@ export class AuthService{
         };
 
         this.storage.setLocalUser(user);
+        this.cartService.createOrClearCart();
     }
+    
     
     logout(){
         this.storage.setLocalUser(null);
@@ -49,4 +55,6 @@ export class AuthService{
                 responseType: 'text'
             })
     }
+
+   
 }
