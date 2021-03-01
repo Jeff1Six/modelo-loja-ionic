@@ -33,8 +33,9 @@ export class CategoriasPage {
       });
   }
 
-  showProdutos() {
-    this.navCtrl.push('ProdutosPage');
+  showProdutos(categoria_id : string) { 
+    this.navCtrl.push('ProdutosPage' , {categoria_id: categoria_id}); //No Push {primeiro parametro nome da var, segundo parametro o que chega no metodo}
+    
   }
 
 }
