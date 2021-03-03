@@ -10,7 +10,9 @@ import { ProdutoService } from '../../services/domain/Produto.service';
 })
 export class ProdutosPage {
 
-  items : ProdutoDTO [];
+  items : ProdutoDTO [] = [];
+  page : number = 0;
+  linesPerPage : number = 24;
 
 
   constructor(
@@ -27,10 +29,10 @@ export class ProdutosPage {
   loadData(){
     let categoria_id = this.navParams.get('categoria_id');
     let loader = this.presentLoading();
-    this.produtoService.findByCategoria(categoria_id)
+    this.produtoService.findByCategoria(categoria_id, this.page, 10)
 
       .subscribe(response=>{
-        this.items = response['content'];
+        this.items = this.items.concat(response['content']);
         loader.dismiss();
         this.loadImageUrl();
       }, error => {
@@ -61,11 +63,20 @@ showDetail(produto_id : string){
 }
 
 doRefresh(refresher) {
+  this.page = 0;
+  this.items = [];
   this.loadData();
   setTimeout(() => {
     refresher.complete();
   }, 1000);
 }
+doInfinite(infiniteScroll) {
+  this.page++;
+  this.loadData();
+  setTimeout(() => {
+   infiniteScroll.complete();
+    }, 1000);
+  }
 
 }
 
